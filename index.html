@@ -4,22 +4,1412 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fudoshin Dojo</title>
-    <!-- Boostrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <title>Dojo Fudoshin Karate · La Florida, Chile</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700;800&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0c0b09;
+            --ink2: #161410;
+            --ink3: #1e1b16;
+            --paper: #f2ede4;
+            --paper-dim: rgba(242, 237, 228, 0.6);
+            --red: #bf2114;
+            --red2: #8c1710;
+            --red-glow: rgba(191, 33, 20, 0.28);
+            --gold: #c49a2e;
+            --gold-dim: rgba(196, 154, 46, 0.12);
+            --wa: #25D366;
+        }
 
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--ink);
+            color: var(--paper);
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Grain overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9000;
+            opacity: .35;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 800;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.4rem 3rem;
+            background: linear-gradient(180deg, rgba(12, 11, 9, .97) 0%, transparent 100%);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .nav-kanji {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 1.6rem;
+            color: var(--red);
+            line-height: 1;
+        }
+
+        .nav-name {
+            font-family: 'Shippori Mincho', serif;
+            font-size: .85rem;
+            font-weight: 700;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--paper);
+            line-height: 1.3;
+        }
+
+        .nav-name small {
+            display: block;
+            font-size: .6rem;
+            letter-spacing: .3em;
+            color: var(--gold);
+            font-weight: 400;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: .7rem;
+            font-weight: 600;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            color: var(--paper-dim);
+            text-decoration: none;
+            transition: color .2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--red);
+        }
+
+        @media(max-width:640px) {
+            .nav-links {
+                display: none;
+            }
+
+            nav {
+                padding: 1.2rem 1.5rem;
+            }
+        }
+
+        /* HERO */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 70% 55% at 50% 45%, rgba(191, 33, 20, .16) 0%, transparent 65%),
+                linear-gradient(160deg, #0c0b09 0%, #110d0b 60%, #0c0b09 100%);
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(255, 255, 255, .018) 79px, rgba(255, 255, 255, .018) 80px);
+        }
+
+        .hero-brushstroke {
+            position: absolute;
+            right: -4%;
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: 'Shippori Mincho', serif;
+            font-size: clamp(200px, 28vw, 380px);
+            font-weight: 800;
+            color: rgba(191, 33, 20, .055);
+            writing-mode: vertical-rl;
+            letter-spacing: .05em;
+            user-select: none;
+            pointer-events: none;
+            line-height: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 4rem;
+            max-width: 1100px;
+            padding: 8rem 3rem 4rem;
+            width: 100%;
+        }
+
+        @media(max-width:768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+                padding: 7rem 1.5rem 3rem;
+            }
+
+            .hero-visual {
+                display: none;
+            }
+        }
+
+        .hero-left {
+            animation: fadeUp .9s ease both;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(28px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            border: 1px solid rgba(196, 154, 46, .3);
+            padding: .35rem .9rem;
+            font-size: .62rem;
+            font-weight: 600;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.6rem;
+            animation: fadeUp .9s .05s ease both;
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--red);
+            border-radius: 50%;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: .2;
+            }
+        }
+
+        h1 {
+            font-family: 'Shippori Mincho', serif;
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 800;
+            line-height: .95;
+            animation: fadeUp .9s .1s ease both;
+        }
+
+        h1 em {
+            display: block;
+            font-style: normal;
+            color: var(--red);
+            text-shadow: 0 0 50px var(--red-glow);
+        }
+
+        .hero-rule {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--red), transparent);
+            margin: 1.6rem 0;
+            animation: fadeUp .9s .15s ease both;
+        }
+
+        .hero-sub {
+            font-size: clamp(.85rem, 1.5vw, 1rem);
+            font-weight: 300;
+            line-height: 1.85;
+            color: var(--paper-dim);
+            max-width: 440px;
+            animation: fadeUp .9s .2s ease both;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2.4rem;
+            animation: fadeUp .9s .25s ease both;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+            padding: .9rem 1.9rem;
+            font-family: 'DM Sans', sans-serif;
+            font-size: .72rem;
+            font-weight: 600;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all .25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, .06);
+            transform: translateX(-105%);
+            transition: transform .3s ease;
+        }
+
+        .btn:hover::after {
+            transform: translateX(0);
+        }
+
+        .btn-red {
+            background: var(--red);
+            color: var(--paper);
+            box-shadow: 0 0 28px var(--red-glow);
+        }
+
+        .btn-red:hover {
+            background: var(--red2);
+            box-shadow: 0 0 44px rgba(191, 33, 20, .55);
+            transform: translateY(-2px);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--paper);
+            border: 1px solid rgba(242, 237, 228, .2);
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        /* Hero visual */
+        .hero-visual {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeUp .9s .3s ease both;
+        }
+
+        .hero-circle {
+            width: 360px;
+            height: 360px;
+            border-radius: 50%;
+            border: 1px solid rgba(191, 33, 20, .2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero-circle::before {
+            content: '';
+            position: absolute;
+            inset: -16px;
+            border-radius: 50%;
+            border: 1px dashed rgba(196, 154, 46, .15);
+            animation: spin 30s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .hero-circle::after {
+            content: '';
+            position: absolute;
+            inset: -32px;
+            border-radius: 50%;
+            border: 1px solid rgba(191, 33, 20, .07);
+        }
+
+        .hero-kanji-main {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 7.5rem;
+            font-weight: 800;
+            color: rgba(191, 33, 20, .18);
+            writing-mode: vertical-rl;
+            letter-spacing: .1em;
+            line-height: 1;
+        }
+
+        .hero-kanji-label {
+            position: absolute;
+            bottom: -2.5rem;
+            font-size: .62rem;
+            letter-spacing: .35em;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        /* Scroll hint */
+        .scroll-hint {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: .5rem;
+            font-size: .6rem;
+            letter-spacing: .25em;
+            text-transform: uppercase;
+            color: rgba(242, 237, 228, .3);
+            animation: fadeUp 1s .5s ease both;
+        }
+
+        .scroll-hint span {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(180deg, rgba(191, 33, 20, .6), transparent);
+            animation: drip 1.8s ease-in-out infinite;
+        }
+
+        @keyframes drip {
+
+            0%,
+            100% {
+                transform: scaleY(0);
+                transform-origin: top;
+            }
+
+            50% {
+                transform: scaleY(1);
+                transform-origin: top;
+            }
+        }
+
+        /* SECTIONS */
+        .s-wrap {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 6rem 3rem;
+        }
+
+        @media(max-width:640px) {
+            .s-wrap {
+                padding: 4rem 1.5rem;
+            }
+        }
+
+        .s-label {
+            display: block;
+            font-size: .6rem;
+            font-weight: 700;
+            letter-spacing: .4em;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: .9rem;
+        }
+
+        .s-title {
+            font-family: 'Shippori Mincho', serif;
+            font-size: clamp(1.9rem, 4vw, 3.2rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.2rem;
+        }
+
+        .s-body {
+            font-size: .97rem;
+            font-weight: 300;
+            line-height: 1.95;
+            color: var(--paper-dim);
+            max-width: 660px;
+        }
+
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(191, 33, 20, .25), transparent);
+        }
+
+        /* NOSOTROS */
+        .nosotros-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        @media(max-width:768px) {
+            .nosotros-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+        }
+
+        .nosotros-art {
+            position: relative;
+            aspect-ratio: 1;
+            max-width: 380px;
+            border: 1px solid rgba(191, 33, 20, .18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, #140e0b, #0c0b09);
+            overflow: hidden;
+        }
+
+        .nosotros-art::before {
+            content: '不\A動\A心';
+            white-space: pre;
+            font-family: 'Shippori Mincho', serif;
+            font-size: 5.5rem;
+            font-weight: 800;
+            color: rgba(191, 33, 20, .12);
+            line-height: 1.15;
+            text-align: center;
+        }
+
+        .nosotros-art::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--red), transparent);
+        }
+
+        .art-tag {
+            position: absolute;
+            bottom: 1rem;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: .6rem;
+            letter-spacing: .35em;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .art-corner {
+            position: absolute;
+            top: .8rem;
+            left: .8rem;
+            font-size: .6rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: rgba(191, 33, 20, .5);
+            font-weight: 600;
+        }
+
+        .highlight-text {
+            margin-top: 2rem;
+            padding: 1.2rem 1.5rem;
+            border-left: 2px solid var(--red);
+            background: rgba(191, 33, 20, .06);
+            font-size: .9rem;
+            font-weight: 400;
+            line-height: 1.8;
+            color: var(--paper-dim);
+            font-style: italic;
+        }
+
+        /* CLASES */
+        .clases-section {
+            background: var(--ink2);
+        }
+
+        .clases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 1px;
+            background: rgba(191, 33, 20, .12);
+            border: 1px solid rgba(191, 33, 20, .12);
+            margin-top: 3rem;
+        }
+
+        .clase-card {
+            background: var(--ink2);
+            padding: 2.5rem 1.8rem;
+            position: relative;
+            overflow: hidden;
+            transition: background .3s;
+        }
+
+        .clase-card:hover {
+            background: var(--ink3);
+        }
+
+        .clase-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 0;
+            background: var(--red);
+            transition: height .4s ease;
+        }
+
+        .clase-card:hover::after {
+            height: 100%;
+        }
+
+        .clase-num {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: rgba(191, 33, 20, .1);
+            line-height: 1;
+            margin-bottom: .8rem;
+        }
+
+        .clase-title {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: .6rem;
+        }
+
+        .clase-desc {
+            font-size: .83rem;
+            font-weight: 300;
+            line-height: 1.75;
+            color: var(--paper-dim);
+        }
+
+        .clase-tag {
+            display: inline-block;
+            margin-top: 1.2rem;
+            font-size: .58rem;
+            font-weight: 700;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            color: var(--gold);
+            border: 1px solid rgba(196, 154, 46, .25);
+            padding: .2rem .7rem;
+        }
+
+        /* HORARIOS */
+        .schedule-note {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            background: rgba(196, 154, 46, .08);
+            border: 1px solid rgba(196, 154, 46, .2);
+            padding: .5rem 1rem;
+            font-size: .75rem;
+            color: var(--gold);
+            font-weight: 500;
+            margin-bottom: 2rem;
+        }
+
+        .sched-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: .87rem;
+        }
+
+        .sched-table th {
+            font-family: 'Shippori Mincho', serif;
+            font-size: .72rem;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            padding: 1rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(196, 154, 46, .2);
+        }
+
+        .sched-table td {
+            padding: .95rem 1.5rem;
+            font-weight: 300;
+            color: var(--paper-dim);
+            border-bottom: 1px solid rgba(255, 255, 255, .04);
+            transition: background .2s, color .2s;
+        }
+
+        .sched-table tr:hover td {
+            background: rgba(191, 33, 20, .06);
+            color: var(--paper);
+        }
+
+        .pill {
+            display: inline-block;
+            padding: .22rem .75rem;
+            background: rgba(191, 33, 20, .12);
+            border: 1px solid rgba(191, 33, 20, .25);
+            font-size: .6rem;
+            font-weight: 700;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: var(--red);
+        }
+
+        @media(max-width:640px) {
+
+            .sched-table th,
+            .sched-table td {
+                padding: .75rem .8rem;
+            }
+
+            .sched-table {
+                font-size: .8rem;
+            }
+        }
+
+        /* CONTACTO */
+        .contact-section {
+            background: var(--ink2);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4.5rem;
+            align-items: start;
+        }
+
+        @media(max-width:768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+        }
+
+        .info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.4rem;
+            margin-top: 2rem;
+        }
+
+        .info-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .info-icon {
+            width: 42px;
+            height: 42px;
+            flex-shrink: 0;
+            border: 1px solid rgba(191, 33, 20, .25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: var(--red);
+            transition: border-color .2s, background .2s;
+        }
+
+        .info-item:hover .info-icon {
+            border-color: var(--red);
+            background: rgba(191, 33, 20, .08);
+        }
+
+        .info-lbl {
+            font-size: .58rem;
+            font-weight: 700;
+            letter-spacing: .28em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: .3rem;
+        }
+
+        .info-val {
+            font-size: .95rem;
+            font-weight: 400;
+            color: var(--paper);
+        }
+
+        .info-val a {
+            color: var(--paper);
+            text-decoration: none;
+            transition: color .2s;
+        }
+
+        .info-val a:hover {
+            color: var(--red);
+        }
+
+        .info-sub {
+            font-size: .75rem;
+            color: rgba(242, 237, 228, .35);
+            margin-top: .2rem;
+            font-weight: 300;
+        }
+
+        .form-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 1.1rem;
+        }
+
+        .f-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media(max-width:480px) {
+            .f-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .f-group {
+            display: flex;
+            flex-direction: column;
+            gap: .4rem;
+        }
+
+        .f-group label {
+            font-size: .6rem;
+            font-weight: 700;
+            letter-spacing: .25em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .f-group input,
+        .f-group textarea,
+        .f-group select {
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid rgba(255, 255, 255, .09);
+            padding: .85rem 1rem;
+            color: var(--paper);
+            font-family: 'DM Sans', sans-serif;
+            font-size: .88rem;
+            font-weight: 300;
+            outline: none;
+            transition: border-color .2s, background .2s;
+            border-radius: 0;
+        }
+
+        .f-group input:focus,
+        .f-group textarea:focus,
+        .f-group select:focus {
+            border-color: var(--red);
+            background: rgba(191, 33, 20, .05);
+        }
+
+        .f-group select option {
+            background: #1e1b16;
+        }
+
+        .f-group textarea {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        .f-note {
+            font-size: .74rem;
+            font-weight: 300;
+            line-height: 1.65;
+            color: rgba(242, 237, 228, .38);
+            padding-top: .3rem;
+        }
+
+        .form-btns {
+            display: flex;
+            flex-direction: column;
+            gap: .8rem;
+            margin-top: .4rem;
+        }
+
+        /* INSTAGRAM STRIP */
+        .ig-strip {
+            padding: 2.2rem 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-top: 1px solid rgba(255, 255, 255, .06);
+            gap: 1rem;
+        }
+
+        .ig-link {
+            display: inline-flex;
+            align-items: center;
+            gap: .8rem;
+            text-decoration: none;
+            font-size: .82rem;
+            font-weight: 500;
+            letter-spacing: .08em;
+            color: var(--paper-dim);
+            transition: color .2s;
+        }
+
+        .ig-link:hover {
+            color: var(--paper);
+        }
+
+        .ig-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ig-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 2rem 2rem 3rem;
+            font-size: .72rem;
+            font-weight: 300;
+            letter-spacing: .1em;
+            color: rgba(242, 237, 228, .25);
+        }
+
+        footer a {
+            color: var(--red);
+            text-decoration: none;
+        }
+
+        /* WHATSAPP FLOAT */
+        .wa-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 700;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--wa);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 22px rgba(37, 211, 102, .4);
+            transition: transform .3s, box-shadow .3s;
+            animation: waPulse 2.5s ease-in-out infinite;
+        }
+
+        .wa-btn:hover {
+            transform: scale(1.12);
+            box-shadow: 0 6px 32px rgba(37, 211, 102, .65);
+            animation: none;
+        }
+
+        .wa-btn svg {
+            width: 28px;
+            height: 28px;
+            fill: white;
+        }
+
+        @keyframes waPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 4px 22px rgba(37, 211, 102, .4);
+            }
+
+            50% {
+                box-shadow: 0 4px 32px rgba(37, 211, 102, .7);
+            }
+        }
+
+        /* TOAST */
+        #toast {
+            position: fixed;
+            bottom: 6rem;
+            right: 2rem;
+            z-index: 9999;
+            padding: 1rem 1.4rem;
+            max-width: 280px;
+            background: #0e1f12;
+            border: 1px solid #25D366;
+            color: #7de09a;
+            font-size: .82rem;
+            font-weight: 500;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: all .35s ease;
+            pointer-events: none;
+            line-height: 1.5;
+        }
+
+        #toast.show {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* SCROLL REVEAL */
+        .reveal {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity .7s ease, transform .7s ease;
+        }
+
+        .reveal.in {
+            opacity: 1;
+            transform: none;
+        }
+    </style>
 </head>
 
 <body>
-    <nav class="navbar">
 
+    <!-- ✏️ REEMPLAZA 56912345678 con tu número real (código país + número, sin espacios ni +) -->
+    <a class="wa-btn"
+        href="https://wa.me/56912345678?text=Hola%21%20Vi%20la%20p%C3%A1gina%20del%20Dojo%20Fudoshin%20Karate%20y%20me%20interesa%20saber%20m%C3%A1s%20%F0%9F%A5%8B"
+        target="_blank" rel="noopener" title="Escribir por WhatsApp">
+        <svg viewBox="0 0 24 24">
+            <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg>
+    </a>
+
+    <div id="toast"></div>
+
+    <!-- NAV -->
+    <nav>
+        <a class="nav-brand" href="#">
+            <span class="nav-kanji">不動心</span>
+            <div class="nav-name">
+                Fudoshin Karate
+                <small>La Florida · Chile</small>
+            </div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#nosotros">Nosotros</a></li>
+            <li><a href="#clases">Clases</a></li>
+            <li><a href="#horarios">Horarios</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
     </nav>
 
-    <!-- JS boostrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-brushstroke">武道</div>
+        <div class="hero-content">
+            <div class="hero-left">
+                <div class="hero-badge">La Florida · Santiago · Chile</div>
+                <h1>
+                    DOJO<br>FUDOSHIN
+                    <em>KARATE</em>
+                </h1>
+                <div class="hero-rule"></div>
+                <p class="hero-sub">
+                    不動心 — Mente Inamovible.<br>
+                    Arte marcial tradicional para niños, jóvenes y adultos.
+                    Disciplina, respeto y carácter forjados en el tatami.
+                </p>
+                <div class="hero-actions">
+                    <a class="btn btn-red"
+                        href="https://wa.me/56912345678?text=Hola%21%20Quiero%20inscribirme%20en%20el%20Dojo%20Fudoshin%20Karate%20%F0%9F%A5%8B"
+                        target="_blank">🥋 Inscríbete Ahora</a>
+                    <a class="btn btn-ghost" href="#clases">Ver Clases</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-circle">
+                    <div class="hero-kanji-main">不動心</div>
+                    <span class="hero-kanji-label">Fudōshin · Mente Inamovible</span>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-hint">
+            <span></span>
+            Scroll
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- NOSOTROS -->
+    <div id="nosotros">
+        <div class="s-wrap">
+            <div class="nosotros-grid">
+                <div class="nosotros-art reveal">
+                    <div class="art-corner">Karate Do</div>
+                    <span class="art-tag">不動心 · Fudōshin</span>
+                </div>
+                <div class="nosotros-text reveal">
+                    <span class="s-label">Nuestra Filosofía</span>
+                    <h2 class="s-title">El Camino del<br>Karate Do</h2>
+                    <p class="s-body">
+                        En el <strong>Dojo Fudoshin</strong> de La Florida enseñamos el Karate como arte marcial
+                        tradicional.
+                        Cada clase trabaja el cuerpo, la mente y el espíritu en armonía, cultivando disciplina
+                        y respeto que trascienden el tatami.
+                    </p>
+                    <p class="s-body" style="margin-top:1rem;">
+                        Recibimos alumnos de <strong>todas las edades y niveles</strong>, desde niños que dan
+                        sus primeros pasos en las artes marciales hasta adultos que buscan superarse y competidores de
+                        alto rendimiento.
+                    </p>
+                    <div class="highlight-text">
+                        "Fudoshin significa mente inamovible: la serenidad y fortaleza que se forjan con práctica
+                        constante y humildad."
+                    </div>
+                    <div style="margin-top:2rem;">
+                        <a class="btn btn-ghost" href="https://www.instagram.com/dojo.fudoshin.karate"
+                            target="_blank">📸 Ver Instagram</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- CLASES -->
+    <div class="clases-section" id="clases">
+        <div class="s-wrap">
+            <span class="s-label reveal">Disciplinas</span>
+            <h2 class="s-title reveal">Nuestras Clases</h2>
+            <p class="s-body reveal">Para todas las edades y niveles — cada alumno encuentra su camino.</p>
+            <div class="clases-grid reveal">
+                <div class="clase-card">
+                    <div class="clase-num">01</div>
+                    <div class="clase-title">Karate Infantil</div>
+                    <div class="clase-desc">Iniciación lúdica y segura al Karate Do. Valores, coordinación motriz y
+                        autoconfianza en un ambiente alegre.</div>
+                    <span class="clase-tag">4 – 12 años</span>
+                </div>
+                <div class="clase-card">
+                    <div class="clase-num">02</div>
+                    <div class="clase-title">Karate Juvenil</div>
+                    <div class="clase-desc">Formación técnica y competitiva. Kata, kumite y desarrollo deportivo con
+                        proyección a torneos nacionales.</div>
+                    <span class="clase-tag">13 – 17 años</span>
+                </div>
+                <div class="clase-card">
+                    <div class="clase-num">03</div>
+                    <div class="clase-title">Karate Adultos</div>
+                    <div class="clase-desc">Entrenamiento completo: kata, kumite y bunkai. Desde principiantes hasta
+                        cinturones avanzados, todos bienvenidos.</div>
+                    <span class="clase-tag">18 + años</span>
+                </div>
+                <div class="clase-card">
+                    <div class="clase-num">04</div>
+                    <div class="clase-title">Defensa Personal</div>
+                    <div class="clase-desc">Técnicas prácticas y directas basadas en el Karate tradicional. Eficaz para
+                        situaciones reales del día a día.</div>
+                    <span class="clase-tag">Todas las edades</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- HORARIOS -->
+    <div id="horarios">
+        <div class="s-wrap">
+            <span class="s-label reveal">Agenda Semanal</span>
+            <h2 class="s-title reveal">Horarios de Clases</h2>
+            <div class="schedule-note reveal">⚠️ Horarios de ejemplo — reemplázalos con los reales del dojo</div>
+            <table class="sched-table reveal">
+                <thead>
+                    <tr>
+                        <th>Día</th>
+                        <th>Clase</th>
+                        <th>Horario</th>
+                        <th>Nivel</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Lunes</td>
+                        <td>Karate Infantil</td>
+                        <td>17:00 – 18:00 h</td>
+                        <td><span class="pill">Principiantes</span></td>
+                    </tr>
+                    <tr>
+                        <td>Lunes</td>
+                        <td>Karate Adultos</td>
+                        <td>19:00 – 20:30 h</td>
+                        <td><span class="pill">Todos</span></td>
+                    </tr>
+                    <tr>
+                        <td>Miércoles</td>
+                        <td>Karate Infantil</td>
+                        <td>17:00 – 18:00 h</td>
+                        <td><span class="pill">Principiantes</span></td>
+                    </tr>
+                    <tr>
+                        <td>Miércoles</td>
+                        <td>Karate Juvenil</td>
+                        <td>18:00 – 19:30 h</td>
+                        <td><span class="pill">Intermedio</span></td>
+                    </tr>
+                    <tr>
+                        <td>Jueves</td>
+                        <td>Defensa Personal</td>
+                        <td>19:00 – 20:30 h</td>
+                        <td><span class="pill">Todos</span></td>
+                    </tr>
+                    <tr>
+                        <td>Viernes</td>
+                        <td>Karate Adultos</td>
+                        <td>19:00 – 20:30 h</td>
+                        <td><span class="pill">Avanzado</span></td>
+                    </tr>
+                    <tr>
+                        <td>Sábado</td>
+                        <td>Karate Infantil</td>
+                        <td>10:00 – 11:00 h</td>
+                        <td><span class="pill">Principiantes</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- CONTACTO -->
+    <div class="contact-section" id="contacto">
+        <div class="s-wrap">
+            <div class="contact-grid">
+                <!-- Info -->
+                <div class="reveal">
+                    <span class="s-label">Contáctanos</span>
+                    <h2 class="s-title">Escríbenos,<br>estamos aquí.</h2>
+                    <p class="s-body">¿Tienes dudas sobre precios, inscripciones o quieres tu primera clase de prueba?
+                        Contáctanos por WhatsApp o correo.</p>
+                    <div class="info-list">
+                        <div class="info-item">
+                            <div class="info-icon">📱</div>
+                            <div>
+                                <div class="info-lbl">WhatsApp</div>
+                                <!-- ✏️ REEMPLAZA el número -->
+                                <div class="info-val"><a
+                                        href="https://wa.me/56912345678?text=Hola%21%20Me%20interesa%20el%20Dojo%20Fudoshin%20%F0%9F%A5%8B"
+                                        target="_blank">+56 9 XXXX XXXX</a></div>
+                                <div class="info-sub">Respuesta automática + atención directa</div>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">📧</div>
+                            <div>
+                                <div class="info-lbl">Correo Electrónico</div>
+                                <!-- ✏️ REEMPLAZA el correo -->
+                                <div class="info-val"><a
+                                        href="mailto:contacto@dojofudoshin.cl">contacto@dojofudoshin.cl</a></div>
+                                <div class="info-sub">Respuesta con info completa + aranceles</div>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">📍</div>
+                            <div>
+                                <div class="info-lbl">Ubicación</div>
+                                <!-- ✏️ REEMPLAZA con tu dirección -->
+                                <div class="info-val">La Florida, Santiago</div>
+                                <div class="info-sub">✏️ Agrega la dirección exacta aquí</div>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">📸</div>
+                            <div>
+                                <div class="info-lbl">Instagram</div>
+                                <div class="info-val"><a href="https://www.instagram.com/dojo.fudoshin.karate"
+                                        target="_blank">@dojo.fudoshin.karate</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario -->
+                <div class="reveal">
+                    <div class="form-wrap">
+                        <div class="f-row">
+                            <div class="f-group">
+                                <label>Nombre</label>
+                                <input type="text" id="fName" placeholder="Tu nombre">
+                            </div>
+                            <div class="f-group">
+                                <label>Teléfono</label>
+                                <input type="tel" id="fPhone" placeholder="+56 9 ···">
+                            </div>
+                        </div>
+                        <div class="f-group">
+                            <label>Correo Electrónico</label>
+                            <input type="email" id="fEmail" placeholder="tu@correo.cl">
+                        </div>
+                        <div class="f-group">
+                            <label>Consulta</label>
+                            <select id="fSubject">
+                                <option value="">Selecciona un tema…</option>
+                                <option>Información general</option>
+                                <option>Inscripción y aranceles</option>
+                                <option>Horarios disponibles</option>
+                                <option>Clase de prueba gratuita</option>
+                                <option>Defensa personal</option>
+                                <option>Otro</option>
+                            </select>
+                        </div>
+                        <div class="f-group">
+                            <label>Mensaje</label>
+                            <textarea id="fMsg" placeholder="Cuéntanos qué necesitas…"></textarea>
+                        </div>
+                        <p class="f-note">
+                            📧 <strong>Correo:</strong> Se abrirá tu app de correo con el mensaje listo y recibirás
+                            respuesta con info completa + precios.<br>
+                            💬 <strong>WhatsApp:</strong> Chat directo con el dojo, respuesta rápida.
+                        </p>
+                        <div class="form-btns">
+                            <button class="btn btn-red" onclick="submitEmail()"
+                                style="justify-content:center;width:100%;">Enviar por Correo ✉️</button>
+                            <button class="btn btn-ghost" onclick="submitWA()"
+                                style="justify-content:center;width:100%;">Enviar por WhatsApp 💬</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- INSTAGRAM STRIP -->
+    <div class="ig-strip">
+        <a class="ig-link" href="https://www.instagram.com/dojo.fudoshin.karate" target="_blank" rel="noopener">
+            <div class="ig-icon">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                </svg>
+            </div>
+            Síguenos en Instagram · @dojo.fudoshin.karate
+        </a>
+    </div>
+
+    <div class="divider"></div>
+
+    <footer>
+        <p>© 2025 Dojo Fudoshin Karate · La Florida, Santiago de Chile ·
+            <a href="https://www.instagram.com/dojo.fudoshin.karate" target="_blank">Instagram</a>
+        </p>
+    </footer>
+
+    <script>
+        /* Scroll reveal */
+        const ro = new IntersectionObserver(entries => {
+            entries.forEach((e, i) => {
+                if (e.isIntersecting) { setTimeout(() => e.target.classList.add('in'), i * 70); ro.unobserve(e.target); }
+            });
+        }, { threshold: .1 });
+        document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+        /* Toast */
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg; t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 4500);
+        }
+
+        /* Email — abre cliente de correo del usuario con mensaje pre-llenado */
+        function submitEmail() {
+            const name = document.getElementById('fName').value.trim();
+            const email = document.getElementById('fEmail').value.trim();
+            const phone = document.getElementById('fPhone').value.trim();
+            const subject = document.getElementById('fSubject').value;
+            const msg = document.getElementById('fMsg').value.trim();
+            if (!email) { alert('Por favor ingresa tu correo electrónico.'); return; }
+            // ✏️ REEMPLAZA con el correo real del dojo
+            const TO = 'contacto@dojofudoshin.cl';
+            const SUBJ = subject ? `[Dojo Fudoshin] ${subject}` : '[Dojo Fudoshin] Consulta desde la web';
+            const BODY =
+                `Hola equipo Fudoshin,
+
+Nombre  : ${name || '—'}
+Correo  : ${email}
+Teléfono: ${phone || '—'}
+Consulta: ${subject || '—'}
+
+Mensaje:
+${msg || '—'}
+
+---
+Enviado desde el sitio web del Dojo Fudoshin Karate.`;
+            window.location.href = `mailto:${TO}?subject=${encodeURIComponent(SUBJ)}&body=${encodeURIComponent(BODY)}`;
+            showToast('✅ Abriendo tu correo… ¡Te responderemos pronto con toda la info!');
+        }
+
+        /* WhatsApp — abre chat con mensaje pre-llenado */
+        function submitWA() {
+            const name = document.getElementById('fName').value.trim();
+            const subject = document.getElementById('fSubject').value;
+            const msg = document.getElementById('fMsg').value.trim();
+            let text = `Hola! Vi la página del Dojo Fudoshin Karate 🥋`;
+            if (name) text += `\nMi nombre es ${name}.`;
+            if (subject) text += `\nConsulta sobre: *${subject}*.`;
+            if (msg) text += `\n\n${msg}`;
+            text += `\n\n¿Podrían darme más información?`;
+            // ✏️ REEMPLAZA 56912345678 con tu número real
+            window.open(`https://wa.me/56912345678?text=${encodeURIComponent(text)}`, '_blank');
+            showToast('💬 Abriendo WhatsApp…');
+        }
+    </script>
 </body>
 
 </html>
